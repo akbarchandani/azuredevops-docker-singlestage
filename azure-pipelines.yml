@@ -11,11 +11,14 @@ stages:
     steps:
     - bash: docker pull akbarchandani/selenium-docker-linux
   - job: StartGridJob
+    dependsOn: PullLatestImageJob
     steps:
     - bash: docker-compose up -d hub chrome firefox
   - job: RunTestJob
+    dependsOn: StartGridJob
     steps:
     - bash: docker-compose up search-module book-flight-module
   - job: PostJob
+    dependsOn: RunTestJob
     steps:
     - bash: docker-compose down
