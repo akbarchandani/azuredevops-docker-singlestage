@@ -9,7 +9,7 @@ stages:
   jobs:
   - job: PullLatestImageJob
     steps:
-    - bash: docker pull akbarchandani/selenium-docker-linux
+    - bash: docker pull akbarchandani/selenium-docker
   - job: StartGridJob
     dependsOn: PullLatestImageJob
     steps:
