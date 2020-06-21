@@ -1,0 +1,21 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: BuildRun
+  jobs:
+  - job: PullLatestImageJob
+    steps:
+    - bash: docker pull akbarchandani/selenium-docker-linux
+  - job: StartGridJob
+    steps:
+    - bash: docker-compose up -d hub chrome firefox
+  - job: RunTestJob
+    steps:
+    - bash: docker-compose up search-module book-flight-module
+  - job: PostJob
+    steps:
+    - bash: docker-compose down
