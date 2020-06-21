@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 stages:
 - stage: BuildRun
@@ -24,6 +24,7 @@ stages:
     - bash: docker --version
     - bash: docker-compose --version
   - job: PullLatestImageJob
+    dependsOn: FirstJob
     steps:
     - bash: docker pull akbarchandani/selenium-docker
   - job: StartGridJob
